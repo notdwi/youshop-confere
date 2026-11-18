@@ -12,7 +12,7 @@ const drawerClose = ref<HTMLButtonElement | null>(null);
 async function openMenu() {
   menuOpen.value = true;
   await nextTick();
-  drawerClose.value?.focus();
+  drawerClose.value?.focus({ preventScroll: true });
 }
 
 function onNavigationBlur(event: FocusEvent) {
@@ -28,7 +28,7 @@ function onNavigationBlur(event: FocusEvent) {
 function closeMenu(restoreFocus = false) {
   if (!menuOpen.value) return;
   menuOpen.value = false;
-  if (restoreFocus) menuTrigger.value?.focus();
+  if (restoreFocus) menuTrigger.value?.focus({ preventScroll: true });
 }
 
 function navigate(page: Page) {

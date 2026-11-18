@@ -653,6 +653,10 @@ blockquote {
   }
 }
 @media (max-width: 760px) {
+  html:has(.mobile-menu-scrim) {
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
   .shell {
     display: block;
   }
@@ -691,19 +695,23 @@ blockquote {
   .mobile-menu-scrim {
     display: block;
     position: fixed;
-    inset: 0;
+    inset: 0 0 auto;
+    height: 100dvh;
+    touch-action: none;
     z-index: 5;
     background: #08142180;
   }
   .sidebar nav {
     position: fixed;
     z-index: 6;
-    inset: 0 0 0 auto;
+    inset: 0 0 auto auto;
+    height: 100dvh;
     width: min(260px, 82vw);
     display: flex;
     flex-direction: column;
     padding: 12px;
     overflow-y: auto;
+    overscroll-behavior: contain;
     background: #10233b;
     border-left: 1px solid #456082;
     box-shadow: -10px 0 28px #08142145;
@@ -714,6 +722,7 @@ blockquote {
       visibility 180ms;
   }
   .sidebar nav.is-open {
+    transition-property: transform;
     transform: translateX(0);
     visibility: visible;
   }
