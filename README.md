@@ -22,7 +22,13 @@ Este repositório reúne o protótipo, a apresentação e as decisões técnicas
 
 ## Experimente com a campanha da Ana
 
-Na demo, Ana anuncia 20% de desconto no plano Completo. Simule a mudança do cupom para o Básico e abra **Ver evidência**. O post continua prometendo R$ 159,20, mas o comprador pagaria R$ 199,00. Inclua novamente o Completo e simule para conferir o ajuste. As campanhas e os valores são fictícios.
+Ana divulga um curso com 20% de desconto no plano Completo. Para testar o que acontece quando o produtor muda essa regra, abra a demo e siga estes passos:
+
+1. Em **Oferta proposta**, mantenha o desconto em 20%, selecione apenas **Básico** e clique em **Simular alteração**.
+2. Na campanha de Ana, abra **Ver evidência**. O anúncio promete **R$ 159,20**, mas a nova regra cobraria **R$ 199,00**.
+3. Selecione **Básico e Completo** e simule novamente. A campanha volta a aparecer como **Compatível**, com o preço anunciado de **R$ 159,20**.
+
+As campanhas e os valores são fictícios.
 
 **Disponibilidade.** O frontend fica no Cloudflare Pages. Hospedo a API Django no meu celular via Termux, com acesso por Cloudflare Tunnel. Se o celular desligar ou perder a conexão, a simulação pode ficar temporariamente indisponível. O PDF inclui uma captura do resultado. [Detalhes da publicação](docs/10-publicacao.md)
 
