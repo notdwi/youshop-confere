@@ -33,7 +33,7 @@ const stale = computed(() => JSON.stringify(draft.value) !== analyzed.value);
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   let response: Response;
   try {
-    response = await fetch(path, options);
+    response = await fetch((import.meta.env.VITE_API_ORIGIN || "") + path, options);
   } catch {
     throw new Error(
       "A conexão com a API falhou. Verifique sua conexão e tente novamente.",
