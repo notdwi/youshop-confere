@@ -812,7 +812,7 @@ blockquote {
     display: none;
   }
   .details-button {
-    padding-left: 0;
+    padding-inline: 12px;
   }
   .checkout-values {
     width: 100%;
