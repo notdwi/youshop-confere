@@ -59,3 +59,5 @@ Em 19/11 o backend foi reorganizado em config/ e simulacoes/. A API conserva os 
 19/11: avaliação ao vivo com 18 legendas fictícias, duas falhas corrigidas e dez testes de backend aprovados. Ver [avaliação e reprodução](05-validacao.md#avaliação-executada-em-19112026).
 
 19/11: apresentação revisada para dez slides após pesquisa de pitch e evidência externa. Versão atual e mapa das oito perguntas em docs/07-apresentacao.md. Para submissão, falta o endereço da demo acessível à banca.
+
+19/11: demo publicada em https://youshop.noctyra.lol com frontend no Pages e Django/MCP via Termux. O teste pelo navegador público retornou as três classificações com IA ao vivo. O favicon usa a marca da YouShop. Consultar docs/10-publicacao.md.

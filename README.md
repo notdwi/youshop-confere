@@ -44,3 +44,5 @@ Referências visuais: [tour do painel da YouShop](https://ajuda.youshop.co/guide
 A [apresentação em PDF](docs/apresentacao/confere.pdf) sintetiza o problema, a demonstração e os critérios de avaliação.
 
 Para continuar de onde a implementação parou, consulte o [registro de retomada](docs/RETOMADA.md).
+
+[Demo pública do Confere](https://youshop.noctyra.lol) · [Publicação no Pages e Termux](docs/10-publicacao.md)
