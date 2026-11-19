@@ -1,10 +1,10 @@
 # Frontend implementado
 
-O YouShop Confere é um protótipo para produtores conferirem o impacto de uma mudança no checkout sobre campanhas de creators. A versão atual roda no navegador, com dados fictícios e regras locais em TypeScript. A integração com Django, um modelo de IA e ferramentas MCP faz parte da arquitetura planejada.
+O YouShop Confere é um protótipo para produtores conferirem o impacto de uma mudança no checkout sobre campanhas de creators. A interface roda no navegador e envia as propostas à API Django para calcular os valores de checkout e a classificação das campanhas. As campanhas são fictícias. O relatório identifica o modo gravado ou NVIDIA. A biblioteca permite editar o texto das campanhas vinculadas para a simulação atual. O editor de oferta permite testar a validade do cupom e a data do checkout.
 
 ## Executar
 
-Pré-requisitos do Vite usado pelo projeto: Node.js 20.19+ na linha 20 ou Node.js 22.12 ou superior, com npm.
+Inicie a API conforme o [guia de execução](../README.md#executar-localmente). O frontend requer Node.js 20.19+ na linha 20 ou Node.js 22.12 ou superior, com npm.
 
 ```sh
 cd frontend
@@ -26,10 +26,10 @@ Abra [http://127.0.0.1:5173/](http://127.0.0.1:5173/). O Vite escuta na interfac
 |---|---|
 | [`frontend/src/App.vue`](../frontend/src/App.vue) | Tela ativa, rascunho da oferta e último resultado da simulação. |
 | [`frontend/src/components/`](../frontend/src/components/) | Estrutura de página, navegação, assinatura visual, editor, resumo, lista de resultados e biblioteca de campanhas. |
-| [`simulation.ts`](../frontend/src/domain/simulation.ts) | Três casos da simulação e regras locais para preço, desconto, planos e classificação. |
-| [`campaignLibrary.ts`](../frontend/src/domain/campaignLibrary.ts) | Catálogo com os casos simuláveis e os exemplos adicionais da biblioteca. |
+| [`simulation.ts`](../frontend/src/domain/simulation.ts) | Tipos da simulação e formatação de preços para exibição. |
+| [`campanhas.json`](../backend/simulacoes/dados/campanhas.json) | Catálogo com os casos simuláveis e os exemplos adicionais da biblioteca. |
 | [`style.css`](../frontend/src/style.css) | Paleta, tipografia, espaçamento e regras de adaptação a telas menores. |
-| [`vite.config.ts`](../frontend/vite.config.ts) | Configuração de desenvolvimento e cabeçalhos do servidor local. |
+| [`vite.config.ts`](../frontend/vite.config.ts) | Proxy para a API Django e cabeçalhos do servidor local. |
 
 Os preços são tratados em centavos e formatados em reais para exibição. A página mostra legendas fictícias como texto. A demo não solicita dados de compradores, não envia cobranças e não publica alterações em ofertas reais.
 

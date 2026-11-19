@@ -1,6 +1,6 @@
 # Plano de execução
 
-O cronograma usa etapas e dependências porque o dia de entrega ainda precisa ser conferido no e-mail. A prioridade é um fluxo completo com três campanhas e uma apresentação que explique o problema, a decisão e o teste.
+O cronograma usa etapas e dependências com prazo final confirmado em 22/11/2026 às 23h59. A prioridade é um fluxo completo com três campanhas e uma apresentação que explique o problema, a decisão e o teste.
 
 | Ordem | Trabalho | Pronto quando |
 |---|---|---|
@@ -15,10 +15,10 @@ A pesquisa exploratória pode ocorrer em paralelo às etapas 1 a 4. Se a valida�
 
 ## Pendências para a entrega
 
-- Conferir o prazo e o formulário no e-mail.
+- Enviar até 22/11/2026 às 23h59 pelo [formulário da YouShop](https://go.youshop.com.br/QJMPLSBWYM).
 - Completar o pitch com um episódio da experiência do candidato e revisar a atribuição do trabalho em equipe.
 - Registrar entrevistas caso aconteçam e atribuir corretamente o que veio da documentação, de conversas e da simulação.
 - Testar a abertura do PDF e do link da demo em uma sessão independente. Confirmar que a demonstração não exige credencial pessoal do avaliador.
 - Revisar textos e imagens para manter o exemplo fictício explícito e remover qualquer dado pessoal ou credencial.
 
-O [frontend com dados fictícios](08-frontend.md) já foi implementado e verificado no navegador. As etapas de backend, MCP, pesquisa com participantes e medição de impacto seguem planejadas.
+O fluxo de interface, API e MCP está integrado. A configuração NVIDIA e a avaliação do modo ao vivo estão no [contrato de IA](AI-SPEC.md). Pesquisa com participantes e medição de impacto em produção continuam como etapas de um piloto.

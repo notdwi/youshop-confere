@@ -40,3 +40,20 @@ O caso principal da demo é considerado aprovado quando acusa o cupom incompatí
 ## Como medir num piloto futuro
 
 Se a YouShop puder disponibilizar eventos e permissões do fluxo, usar como indicador principal **tentativas com falha ao aplicar um cupom anunciado a cada 100 tentativas registradas desse cupom**, considerando campanhas incluídas no piloto. Comparar mudanças semelhantes com e sem a conferência em períodos comparáveis. Acompanhar conversão e volume de chamados relacionados como indicadores auxiliares. Volume de dados e acesso aos vínculos entre oferta, campanha e uso de cupom ainda precisam ser confirmados.
+
+## Avaliação executada em 19/11/2026
+
+Modelo NVIDIA Nemotron 3.5 Bolt. Executamos propostas pelo POST real, com leitura ao vivo e checkout via MCP. Os [12 casos principais](../backend/avaliacao/casos.tsv) e os [6 de reserva](../backend/avaliacao/reserva.tsv) incluem desconto por extenso, preço antigo e atual, múltiplas promessas, plano incompatível, cupom desconhecido e texto ambíguo. O gabarito fixa classificação e totais em centavos antes de cada conjunto ser enviado. A conferência exige também uma evidência literal; no caso da campanha com duas promessas exige os dois estados no detalhe.
+
+- Na primeira execução, seis dos doze casos passaram. Dois lotes de três tiveram erro de integração. Uma nova execução intermediária expôs a leitura de R$ 99 como 99 centavos.
+- Ajustamos as instruções e a temperatura, conferimos o valor extraído quando a evidência tem um preço explícito em reais e limitamos a uma nova tentativa quando o conteúdo não passa na validação. Falhas HTTP continuam visíveis e o prazo global continua valendo.
+- Depois dos ajustes, duas execuções dos doze casos principais passaram integralmente. Os seis casos de reserva passaram antes e depois do ajuste final. São 18 exemplos fictícios distintos, com três vínculos de campanha; repetições não aumentam o tamanho da amostra. O conjunto principal orientou ajustes. O teste de evidência literal verifica a presença do trecho; isoladamente, não prova compreensão semântica.
+- O backend passou em dez testes automatizados. O build do frontend passou. No navegador exercitamos uma simulação real, a abertura da evidência, o filtro de canal, a navegação a 360 px e a exibição de erro com uma resposta HTTP 502 simulada.
+- Os resultados não medem prevalência da dor, redução de abandono ou precisão em campanhas reais. O serviço externo pode variar; em erro a aplicação permite tentar novamente.
+
+Para repetir com a API local em modo NVIDIA, execute a partir da raiz (usa a cota do provedor):
+
+```sh
+python3 backend/avaliacao/executar.py
+python3 backend/avaliacao/executar.py --conjunto reserva
+```

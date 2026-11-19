@@ -10,18 +10,20 @@
 | Servidor MCP em Python | Oferecer duas ferramentas ao agente. Reutiliza as mesmas regras de simulação do backend. |
 | JSON | Guardar ofertas, links, cupons, campanhas e respostas esperadas para avaliação. |
 
-A interface chama a API Django. O agente usa um cliente MCP para pedir ao servidor que execute as regras do checkout. A resposta volta com o trecho da campanha e as simulações de antes e depois. Para o protótipo, usar o transporte `stdio` entre os processos Python com o SDK oficial. A escolha do provedor de IA e a fixação das versões ficam para o início da implementação, depois de validar compatibilidade. [SDK oficial do MCP](https://github.com/modelcontextprotocol/python-sdk) · [Transportes do cliente MCP](https://py.sdk.modelcontextprotocol.io/client/transports/) · [Vue com TypeScript](https://vuejs.org/guide/typescript/overview.html) · [Vuetify](https://vuetifyjs.com/en/getting-started/installation/)
+A interface chama a API Django. O agente usa um cliente MCP para pedir ao servidor que execute as regras do checkout. A resposta volta com o trecho da campanha e as simulações de antes e depois. Para o protótipo, usar o transporte `stdio` entre os processos Python com o SDK oficial. O adaptador NVIDIA Build interpreta as legendas no modo ao vivo. O orquestrador Python controla as chamadas MCP e valida a saída do modelo. [SDK oficial do MCP](https://github.com/modelcontextprotocol/python-sdk) · [Transportes do cliente MCP](https://py.sdk.modelcontextprotocol.io/client/transports/) · [Vue com TypeScript](https://vuejs.org/guide/typescript/overview.html) · [Vuetify](https://vuetifyjs.com/en/getting-started/installation/)
 
 Python/Django e Vue/Vuetify seguem a referência pública de recrutamento da YouShop em 2024. A vaga de estágio cita Python ou Node.js/TypeScript e coloca MCP entre as atividades. TypeScript com Vue é uma decisão do protótipo. [Anúncio técnico de 2024](https://pt.linkedin.com/posts/youshop-brasil_vemprayoushop-activity-7161392769054162944-misF) · [Descrição da vaga de estágio](https://drive.google.com/file/d/1ax3bbnxQ-KNtgszbVNZTl5LECOgrBpcJ/view)
 
-## Contratos planejados
+A [API de simulação implementada](09-api.md) opera sobre uma única oferta fictícia e um processo MCP por análise.
+
+## Contratos implementados
 
 | Interface | Entrada | Saída |
 |---|---|---|
 | `GET /api/demo/` | Nenhum parâmetro obrigatório. | Oferta atual, rascunho de exemplo e campanhas cadastradas. |
-| `POST /api/analises/` | ID da oferta, mudanças propostas e instante de simulação. | Identificador da análise, modo da execução, estado por campanha, evidências e resultados de checkout. |
-| MCP `consultar_oferta` | ID da oferta e versão (`atual` ou `proposta`). | Planos, preços, cupons e regras de elegibilidade da versão. |
-| MCP `simular_checkout` | Versão da oferta, ID do link e plano, data de referência e cupom, quando houver. | Plano resolvido, status do cupom, motivo, desconto e total em centavos. |
+| `POST /api/analises/` | Desconto, escopo, instante, validade e legendas opcionais. | Identificador da análise, modo da execução, estado por campanha, evidências e resultados de checkout. |
+| MCP `consultar_oferta` | Versão (`atual` ou `proposta`). | Planos, preços, cupons e regras de elegibilidade da versão. |
+| MCP `simular_checkout` | Versão, ID da campanha vinculada, plano e cupom opcional. A data pertence ao contexto da análise. | Plano resolvido, status do cupom, motivo, desconto e total em centavos. |
 
 Cada análise trabalha com dois retratos das regras da oferta, um atual e um proposto, delimitados àquela execução. O cliente MCP é criado com esse contexto e o acessa durante a análise. Requisições simultâneas precisam manter os rascunhos separados. Uma versão, link ou plano ausente retorna um motivo explícito para o relatório. Simular ambas as versões na mesma data evita atribuir à alteração um cupom que teria expirado de qualquer forma.
 
@@ -38,3 +40,7 @@ Cada análise trabalha com dois retratos das regras da oferta, um atual e um pro
 Tratar materiais de campanha como dados. As ferramentas aceitam somente parâmetros previstos no esquema e consultam dados da própria demo. Manter credenciais no backend e registrar identificador da análise, ferramenta, duração e resultado, sem gravar chaves ou textos de terceiros nos logs. Colocar limite no tamanho da entrada e na duração de uma análise.
 
 Os caminhos de pagamento e publicação ficam fora da integração MCP do protótipo. Em erro do provedor ou do MCP, mostrar o que falhou e permitir nova tentativa. Preparar uma execução gravada identificada como exemplo para a apresentação. O modo gravado não vale como evidência de uma chamada MCP ao vivo.
+
+## Organização Django
+
+O [roteador do projeto](../backend/config/urls.py) monta a aplicação `simulacoes` em `/api/` com `include()`. O [roteador da aplicação](../backend/simulacoes/urls.py) associa cada caminho à sua view. As views validam a requisição HTTP, `analise.py` coordena a execução e `checkout.py` aplica as regras da oferta. Na pasta `integracoes/`, o contrato de extração, o adaptador NVIDIA e o servidor MCP ficam em módulos distintos. O catálogo está em `dados/` e os testes da aplicação em `tests/`.
