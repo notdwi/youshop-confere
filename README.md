@@ -1,13 +1,21 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="frontend/public/youshop-logo-light.png">
-  <img src="frontend/public/youshop-logo.png" width="170" alt="YouShop">
-</picture>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="frontend/public/youshop-logo-light.png">
+    <img src="frontend/public/youshop-logo.png" width="170" alt="YouShop">
+  </picture>
+</p>
 
-# YouShop Confere
+<h1 align="center">YouShop Confere</h1>
+
+<p align="center">
+  <a href="https://youshop.noctyra.lol/"><strong>Experimentar a demo</strong></a>
+  &nbsp;·&nbsp;
+  <a href="docs/apresentacao/confere.pdf">Ler a apresentação em PDF</a>
+</p>
 
 Antes de mudar um cupom, o produtor pode testar **quais publicações de creators passariam a prometer um desconto diferente do cobrado**. Projeto de Gean Carlos para o Desafio de Inovação do Programa de Estágio YouShop 2027.
 
-[Experimentar a demo](https://youshop.noctyra.lol/) · [Ler a apresentação em PDF](docs/apresentacao/confere.pdf)
+## Experimente com a campanha da Ana
 
 Na demo, Ana anuncia 20% de desconto no plano Completo. Simule a mudança do cupom para o Básico e abra **Ver evidência**. O post continua prometendo R$ 159,20, mas o comprador pagaria R$ 199,00. Inclua novamente o Completo e simule para conferir o ajuste. As campanhas e os valores são fictícios.
 
