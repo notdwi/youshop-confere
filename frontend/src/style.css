@@ -97,7 +97,7 @@ ul {
   display: grid;
   gap: 4px;
 }
-.sidebar nav button {
+.sidebar nav :is(button, .repository-link) {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -111,7 +111,10 @@ ul {
   font-size: 13px;
   font-weight: 620;
 }
-.sidebar nav button:hover {
+.repository-link {
+  text-decoration: none;
+}
+.sidebar nav :is(button, .repository-link):hover {
   background: #1d3652;
 }
 .sidebar nav button[aria-current] {

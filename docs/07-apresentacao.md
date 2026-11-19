@@ -28,7 +28,7 @@ O PDF tem dez slides, com pitch pessoal na abertura e uma captura do relatório 
 
 Edite o texto do HTML e abra o arquivo no navegador a partir do repositório para carregar a captura e a marca. Na impressão, use a opção de salvar como PDF, margens zero, gráficos de fundo ativados e cabeçalhos/rodapés do navegador desativados. Confira as dez páginas antes do envio.
 
-O ambiente local permite ensaiar a demonstração. O edital pede um link acessível à banca quando houver protótipo ou simulação. O slide final inclui o [link da demo pública](https://youshop.noctyra.lol/). Envie também o endereço no formulário e confirme o acesso em uma janela privada. O repositório atual é privado. A captura no slide 5 também permite explicar o relatório sem conexão. O prazo e o formulário devem ser conferidos no e-mail da YouShop.
+O ambiente local permite ensaiar a demonstração. O edital pede um link acessível à banca quando houver protótipo ou simulação. O slide final inclui o [link da demo pública](https://youshop.noctyra.lol/). Envie também o endereço no formulário e confirme o acesso em uma janela privada. O código está disponível no GitHub pelo menu da demo. A captura no slide 5 também permite explicar o relatório sem conexão. O prazo e o formulário devem ser conferidos no e-mail da YouShop.
 
 Recomendação de entrega: PDF e link de acesso ao protótipo. O PDF pode ser lido sem narração. A revisão segue a orientação de priorizar legibilidade e uma ideia explícita por slide. [Guia de pitch da Y Combinator](https://www.ycombinator.com/library/4T-how-to-design-a-better-pitch-deck). O slide 3 cita o relato da impact.com sobre cupons desatualizados divulgados por afiliados. O slide 8 relata os testes do Confere.
 

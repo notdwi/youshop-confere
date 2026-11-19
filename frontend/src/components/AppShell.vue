@@ -96,6 +96,10 @@ const items = [
             <v-icon :icon="item.icon" size="19" />
             {{ item.label }}
           </button>
+          <a class="repository-link" href="https://github.com/notdwi/youshop-confere" target="_blank" rel="noopener noreferrer">
+            <v-icon icon="mdi-github" size="19" aria-hidden="true" />
+            Ver no GitHub
+          </a>
           <div class="mobile-drawer-footer">
             <BrandLockup />
             <span>Ambiente de demonstração</span>
