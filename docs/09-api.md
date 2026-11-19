@@ -29,7 +29,7 @@ Envie novamente com `"scope":"Todos"` e o mesmo desconto. O total de Ana volta a
 
 ## Limites da etapa
 
-O modo gravado reconhece legendas da demo. Uma legenda nova precisa do modo NVIDIA para extração ao vivo. Ambos os modos consultam o servidor MCP local por stdio. Cada resposta inclui `analysisId`, `example` e resultados com `details` por condição e `evidence` literal. Resultados preexistentes distinguem um problema anterior de uma mudança introduzida pelo produtor.
+O modo gravado reconhece legendas da demo. Uma legenda nova precisa do modo NVIDIA para extração ao vivo. Ambos os modos consultam o servidor MCP por uma sessão em memória na versão local revisada. Cada resposta inclui `analysisId`, `example` e resultados com `details` por condição e `evidence` literal. Resultados preexistentes distinguem um problema anterior de uma mudança introduzida pelo produtor.
 
 O corpo admite também `referenceTime` e `expiresAt` em ISO 8601 com fuso. O instante exato do vencimento ainda aceita o cupom. Omitir a validade preserva a data da oferta atual, enviar `null` remove o vencimento. `texts` mapeia IDs de campanhas incluídas para legendas de até 800 caracteres. Edições valem apenas para aquele rascunho. A API limita o corpo a 16 KiB, duas análises simultâneas por processo e 90 s por análise. Sob carga retorna 429, em falha de integração 502 e em timeout global 504.
 

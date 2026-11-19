@@ -10,11 +10,11 @@
 | Servidor MCP em Python | Oferecer duas ferramentas ao agente. Reutiliza as mesmas regras de simulação do backend. |
 | JSON | Guardar ofertas, links, cupons, campanhas e respostas esperadas para avaliação. |
 
-A interface chama a API Django. O agente usa um cliente MCP para pedir ao servidor que execute as regras do checkout. A resposta volta com o trecho da campanha e as simulações de antes e depois. Para o protótipo, usar o transporte `stdio` entre os processos Python com o SDK oficial. O adaptador NVIDIA Build interpreta as legendas no modo ao vivo. O orquestrador Python controla as chamadas MCP e valida a saída do modelo. [SDK oficial do MCP](https://github.com/modelcontextprotocol/python-sdk) · [Transportes do cliente MCP](https://py.sdk.modelcontextprotocol.io/client/transports/) · [Vue com TypeScript](https://vuejs.org/guide/typescript/overview.html) · [Vuetify](https://vuetifyjs.com/en/getting-started/installation/)
+A interface chama a API Django. O agente usa um cliente MCP para pedir ao servidor que execute as regras do checkout. A resposta volta com o trecho da campanha e as simulações de antes e depois. Na versão local revisada, a API usa streams em memória do SDK oficial: cada proposta cria uma sessão cliente/servidor isolada no processo da API. A entrada por módulo também aceita clientes externos por stdio. O adaptador NVIDIA Build interpreta as legendas no modo ao vivo. O orquestrador Python controla as chamadas MCP e valida a saída do modelo. [SDK oficial do MCP](https://github.com/modelcontextprotocol/python-sdk) · [Transportes do cliente MCP](https://py.sdk.modelcontextprotocol.io/client/transports/) · [Vue com TypeScript](https://vuejs.org/guide/typescript/overview.html) · [Vuetify](https://vuetifyjs.com/en/getting-started/installation/)
 
 Python/Django e Vue/Vuetify seguem a referência pública de recrutamento da YouShop em 2024. A vaga de estágio cita Python ou Node.js/TypeScript e coloca MCP entre as atividades. TypeScript com Vue é uma decisão do protótipo. [Anúncio técnico de 2024](https://pt.linkedin.com/posts/youshop-brasil_vemprayoushop-activity-7161392769054162944-misF) · [Descrição da vaga de estágio](https://drive.google.com/file/d/1ax3bbnxQ-KNtgszbVNZTl5LECOgrBpcJ/view)
 
-A [API de simulação implementada](09-api.md) opera sobre uma única oferta fictícia e um processo MCP por análise.
+A [API de simulação implementada](09-api.md) opera sobre uma única oferta fictícia e uma sessão MCP por análise.
 
 ## Contratos implementados
 
