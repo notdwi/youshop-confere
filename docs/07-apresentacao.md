@@ -2,7 +2,7 @@
 
 [Apresentação em PDF](apresentacao/confere.pdf) · [Fonte editável em HTML](apresentacao/confere.html)
 
-O PDF tem dez slides, com pitch pessoal na abertura e uma captura do relatório no quinto slide. O relato pessoal segue o currículo usado no projeto. Gean deve conferir a descrição da própria participação antes de enviar. A métrica de falhas de cupom é uma proposta de piloto. O protótipo usa dados fictícios.
+O PDF tem dez slides, com pitch pessoal na abertura e uma captura do relatório no quinto slide. O relato pessoal segue o currículo usado no projeto. A métrica de descontos abaixo do anunciado é uma proposta de piloto. O protótipo usa dados fictícios.
 
 ## Correspondência com a entrega
 

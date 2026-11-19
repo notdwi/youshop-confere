@@ -1,4 +1,10 @@
-# Retomada do YouShop Confere • 18/11/2026
+# Entrega do YouShop Confere
+
+**Única pendência:** enviar a [apresentação](apresentacao/confere.pdf) e o [link da demo](https://youshop.noctyra.lol/) pelo [formulário oficial](https://go.youshop.com.br/QJMPLSBWYM) até 22/11/2026 às 23h59.
+
+Os registros abaixo descrevem etapas anteriores do projeto.
+
+## Retomada do YouShop Confere • 18/11/2026
 
 O trabalho de backend, integração e apresentação está no diretório local. O último commit confirmado anteriormente na main é 7757073, referente ao menu mobile. O candidato pediu autorização expressa antes de enviar qualquer alteração ao Git. Preservar o trabalho local.
 

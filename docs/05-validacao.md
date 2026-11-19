@@ -39,7 +39,7 @@ O caso principal da demo é considerado aprovado quando acusa o cupom incompatí
 
 ## Como medir num piloto futuro
 
-Se a YouShop puder disponibilizar eventos e permissões do fluxo, usar como indicador principal **tentativas com falha ao aplicar um cupom anunciado a cada 100 tentativas registradas desse cupom**, considerando campanhas incluídas no piloto. Comparar mudanças semelhantes com e sem a conferência em períodos comparáveis. Acompanhar conversão e volume de chamados relacionados como indicadores auxiliares. Volume de dados e acesso aos vínculos entre oferta, campanha e uso de cupom ainda precisam ser confirmados.
+Se a YouShop puder disponibilizar eventos e permissões do fluxo, usar como indicador principal **tentativas com desconto aplicado abaixo do prometido a cada 100 tentativas de usar o cupom no plano anunciado**, considerando campanhas incluídas no piloto. Comparar mudanças semelhantes com e sem a conferência em períodos comparáveis. Acompanhar conversão e volume de chamados relacionados como indicadores auxiliares. Volume de dados e acesso aos vínculos entre oferta, campanha e uso de cupom ainda precisam ser confirmados.
 
 ## Avaliação executada em 19/11/2026
 
