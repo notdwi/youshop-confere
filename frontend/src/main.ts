@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import { createVuetify } from "vuetify";
-import { VApp, VBtn, VIcon } from "vuetify/components";
+import { VApp, VBtn, VIcon, VProgressCircular, VSnackbar } from "vuetify/components";
 import "vuetify/styles";
 import "@mdi/font/css/materialdesignicons.css";
 import "@fontsource-variable/inter";
@@ -10,7 +10,7 @@ import "./style.css";
 createApp(App)
   .use(
     createVuetify({
-      components: { VApp, VBtn, VIcon },
+      components: { VApp, VBtn, VIcon, VProgressCircular, VSnackbar },
       theme: {
         defaultTheme: "confere",
         themes: {

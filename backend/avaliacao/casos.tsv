@@ -1,0 +1,13 @@
+lote	id	legenda	status	antes	depois
+1	ana	No Completo, o código ANACURSO corta um quinto do preço.	Impactada	15920	19900
+1	bruno	O Básico antes custava R$ 129. Hoje você paga R$ 99 pelo meu link.	Compatível	9900	9900
+1	camila	Vem novidade boa para quem se inscrever hoje!	Revisão necessária	-	-
+2	ana	Completo por R$ 199,00, sem precisar usar cupom.	Compatível	19900	19900
+2	bruno	O Básico custa R$ 89,90 nesta divulgação.	Divergência preexistente	9900	9900
+2	camila	Até 20% de economia em planos selecionados. Consulte condições.	Revisão necessária	-	-
+3	ana	No Completo use DESCONHECIDO para ganhar 20%.	Divergência preexistente	19900	19900
+3	bruno	Use ANACURSO no Básico: vinte por cento de desconto.	Compatível	7920	7920
+3	camila	Meu link leva ao Básico por R$ 99.	Revisão necessária	-	-
+4	ana	Com ANACURSO o Completo tem 20% de abatimento. Sem cupom o Completo custa R$ 199.	Impactada	15920	19900
+4	bruno	Pague noventa e nove reais pelo plano Básico.	Compatível	9900	9900
+4	camila	O valor do Completo eu conto depois, fale comigo!	Revisão necessária	-	-

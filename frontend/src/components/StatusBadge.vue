@@ -3,6 +3,7 @@ import type { Status } from "../domain/simulation";
 
 defineProps<{ status: Status }>();
 const tones = {
+  "Divergência preexistente": "prior",
   Impactada: "impact",
   Compatível: "ok",
   "Revisão necessária": "review",

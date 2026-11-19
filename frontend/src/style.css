@@ -567,7 +567,7 @@ blockquote {
 }
 .campaign-list li {
   display: grid;
-  grid-template-columns: minmax(145px, 0.34fr) minmax(0, 1fr) max-content;
+  grid-template-columns: minmax(145px, 22%) minmax(0, 1fr) max-content;
   align-items: center;
   gap: 12px;
   padding-block: 9px;
@@ -817,4 +817,103 @@ blockquote {
   .checkout-values {
     width: 100%;
   }
+}
+
+.analysis-mode {
+  margin-left: auto;
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: #315273;
+  background: #e7eff7;
+  font-size: 11px;
+  font-weight: 650;
+}
+.time-options {
+  margin: 9px 14px 0;
+  font-size: 12px;
+}
+.time-options summary {
+  width: fit-content;
+  padding-block: 5px;
+  color: #244870;
+  font-weight: 650;
+  cursor: pointer;
+}
+.time-options .fields {
+  margin-top: 8px;
+}
+.time-options p,
+.quote-editor p {
+  margin-block: 5px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.library-actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+.quote-editor {
+  grid-column: 1 / -1;
+  padding: 10px;
+  border-radius: 8px;
+  background: #edf3f9;
+}
+.quote-editor textarea {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px;
+  border: 1px solid #9eb4ca;
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  resize: vertical;
+}
+.evidence-detail + .evidence-detail {
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+  margin-top: 8px;
+}
+.api-notice {
+  padding: 12px;
+  border-radius: 8px;
+  background: #fcecea;
+  color: #893326;
+}
+.prior {
+  background: #eae6f5;
+  color: #574573;
+}
+.metrics:has(.metric:nth-child(4)) {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+@media (max-width: 760px) {
+  .campaign-list li .library-actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}
+@media (max-width: 540px) {
+  .time-options .fields {
+    grid-template-columns: 1fr;
+  }
+  .metrics:has(.metric:nth-child(4)) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.fields :is(input, select):focus-visible {
+  outline: 2px solid #527900;
+  outline-offset: -2px;
+}
+
+.action-confirmation {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

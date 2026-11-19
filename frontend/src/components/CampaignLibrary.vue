@@ -1,13 +1,33 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { libraryCampaigns } from "../domain/campaignLibrary";
+import type { Campaign } from "../domain/simulation";
 
-defineEmits<{ back: [] }>();
+const props = defineProps<{
+  libraryCampaigns: Campaign[];
+  texts: Record<string, string>;
+  example: boolean;
+}>();
+
+const emit = defineEmits<{ back: []; edit: [id: string, text: string] }>();
+const editing = ref<string | null>(null);
+const editText = ref("");
+
+function startEdit(campaign: Campaign) {
+  editing.value = campaign.id;
+  editText.value = props.texts[campaign.id] ?? campaign.quote;
+}
+
+function saveEdit(id: string) {
+  const text = editText.value.trim();
+  if (!text) return;
+  emit("edit", id, text);
+  editing.value = null;
+}
 
 const query = ref("");
 const channel = ref("");
 const channels = Array.from(
-  new Set(libraryCampaigns.map((item) => item.channel)),
+  new Set(props.libraryCampaigns.map((item) => item.channel)),
 ).sort();
 const normalize = (value: string) =>
   value
@@ -17,9 +37,9 @@ const normalize = (value: string) =>
 
 const matches = computed(() => {
   const term = normalize(query.value.trim());
-  return libraryCampaigns.filter((item) => {
+  return props.libraryCampaigns.filter((item) => {
     const searchable = normalize(
-      [item.name, item.channel, item.quote].join(" "),
+      [item.name, item.channel, props.texts[item.id] ?? item.quote].join(" "),
     );
     return (
       (!channel.value || item.channel === channel.value) &&
@@ -82,13 +102,62 @@ function clearFilters() {
             >{{ campaign.name }}<small>{{ campaign.channel }}</small></span
           >
         </div>
-        <blockquote>{{ campaign.quote }}</blockquote>
-        <span
-          class="campaign-source"
-          :class="{ included: campaign.inSimulation }"
+        <blockquote>{{ texts[campaign.id] ?? campaign.quote }}</blockquote>
+        <div class="library-actions">
+          <button
+            v-if="campaign.inSimulation"
+            class="text-button"
+            :aria-label="'Editar divulgação de ' + campaign.name"
+            @click="startEdit(campaign)"
+          >
+            <v-icon icon="mdi-pencil-outline" size="16" /> Editar
+          </button>
+          <span
+            class="campaign-source"
+            :class="{ included: campaign.inSimulation }"
+          >
+            {{
+              texts[campaign.id]
+                ? "Rascunho"
+                : campaign.inSimulation
+                  ? "Na simulação"
+                  : "Exemplo adicional"
+            }}
+          </span>
+        </div>
+        <form
+          v-if="editing === campaign.id"
+          class="quote-editor"
+          @submit.prevent="saveEdit(campaign.id)"
         >
-          {{ campaign.inSimulation ? "Na simulação" : "Exemplo adicional" }}
-        </span>
+          <label :for="'quote-' + campaign.id"
+            >Divulgação de {{ campaign.name }}</label
+          >
+          <textarea
+            :id="'quote-' + campaign.id"
+            v-model="editText"
+            required
+            maxlength="800"
+            rows="3"
+          ></textarea>
+          <p>
+            {{
+              example
+                ? "No exemplo gravado, uma legenda nova precisa de revisão."
+                : "A alteração vale apenas para este rascunho."
+            }}
+          </p>
+          <button
+            type="submit"
+            class="text-button"
+            :disabled="!editText.trim()"
+          >
+            Aplicar ao rascunho
+          </button>
+          <button type="button" class="text-button" @click="editing = null">
+            Cancelar
+          </button>
+        </form>
       </li>
     </ul>
     <div v-else class="empty">

@@ -1,9 +1,31 @@
 <script setup lang="ts">
-import { current, type Draft, type Scope } from "../domain/simulation";
+import type { Draft, Scope } from "../domain/simulation";
 
-defineProps<{ draft: Draft }>();
-defineEmits<{ update: [draft: Draft]; submit: []; reset: [] }>();
+const props = defineProps<{
+  draft: Draft;
+  current: Draft;
+  example: boolean;
+  loading: boolean;
+}>();
+const emit = defineEmits<{ update: [draft: Draft]; submit: []; reset: [] }>();
 const scopes: Scope[] = ["Todos", "Básico", "Completo"];
+const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+function localTime(value?: string | null) {
+  if (!value) return "";
+  const date = new Date(value);
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60_000)
+    .toISOString()
+    .slice(0, 19);
+}
+
+function updateTime(field: "expiresAt" | "referenceTime", event: Event) {
+  const value = (event.target as HTMLInputElement).value;
+  emit("update", {
+    ...props.draft,
+    [field]: value ? new Date(value).toISOString() : null,
+  });
+}
 </script>
 
 <template>
@@ -16,6 +38,7 @@ const scopes: Scope[] = ["Todos", "Básico", "Completo"];
         <h2>Oferta em análise</h2>
         <p>Curso de Edição de Vídeo · ANACURSO</p>
       </div>
+      <span v-if="example" class="analysis-mode">Exemplo gravado</span>
     </header>
     <div class="offer-grid">
       <section class="offer offer-current">
@@ -74,16 +97,57 @@ const scopes: Scope[] = ["Todos", "Básico", "Completo"];
         </div>
       </section>
     </div>
+    <details class="time-options">
+      <summary>Validade do cupom e horário do checkout</summary>
+      <div class="fields">
+        <label
+          >Fim da validade proposta
+          <input
+            type="datetime-local"
+            step="1"
+            :value="localTime(draft.expiresAt)"
+            @change="updateTime('expiresAt', $event)"
+        /></label>
+        <label
+          >Horário do checkout
+          <input
+            type="datetime-local"
+            step="1"
+            required
+            :value="localTime(draft.referenceTime)"
+            @change="updateTime('referenceTime', $event)"
+        /></label>
+      </div>
+      <p>
+        Horários em {{ timezone }}. A validade atual é
+        {{
+          current.expiresAt
+            ? new Date(current.expiresAt).toLocaleString("pt-BR", {
+                dateStyle: "short",
+                timeStyle: "short",
+              })
+            : "indeterminada"
+        }}. Deixe a validade proposta em branco para simular um cupom sem
+        vencimento.
+      </p>
+    </details>
     <footer class="editor-footer">
-      <button type="button" class="text-button" @click="$emit('reset')">
+      <button
+        type="button"
+        class="text-button"
+        :disabled="loading"
+        @click="$emit('reset')"
+      >
         <v-icon icon="mdi-restore" size="17" /> Restaurar exemplo</button
       ><v-btn
         type="submit"
+        :aria-busy="loading"
+        :disabled="loading"
         class="run-button"
         color="primary"
         elevation="0"
-        prepend-icon="mdi-swap-horizontal"
-        >Simular alteração</v-btn
+        :prepend-icon="loading ? undefined : 'mdi-swap-horizontal'"
+        ><v-progress-circular v-if="loading" indeterminate :size="16" :width="2" class="mr-2" /><span role="status">{{ loading ? "Verificando campanhas…" : "Simular alteração" }}</span></v-btn
       >
     </footer>
   </form>

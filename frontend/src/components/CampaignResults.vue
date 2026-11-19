@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { money, type Result } from "../domain/simulation";
 import StatusBadge from "./StatusBadge.vue";
 
-defineProps<{ results: Result[]; stale: boolean }>();
+defineProps<{ results: Result[]; example: boolean; stale: boolean }>();
 const selected = ref<string | null>(null);
 
 function toggle(id: string) {
@@ -19,7 +19,7 @@ function toggle(id: string) {
       </div>
       <div>
         <h2 id="results-title">Impacto nas campanhas</h2>
-        <p>Resultados da última simulação</p>
+        <p>{{ example ? "Resultado do exemplo gravado" : "Resultado da última simulação" }}</p>
       </div>
     </header>
     <slot />
@@ -82,8 +82,23 @@ function toggle(id: string) {
           :id="'evidence-' + item.campaign.id"
           class="evidence"
         >
-          <blockquote>{{ item.campaign.quote }}</blockquote>
-          <p>{{ item.reason }}</p>
+          <template v-if="item.details && item.details.length > 1">
+            <div
+              v-for="(detail, index) in item.details"
+              :key="index"
+              class="evidence-detail"
+            >
+              <StatusBadge :status="detail.status" />
+              <blockquote v-if="detail.evidence">
+                {{ detail.evidence }}
+              </blockquote>
+              <p>{{ detail.reason }}</p>
+            </div>
+          </template>
+          <template v-else>
+            <blockquote v-if="item.evidence">{{ item.evidence }}</blockquote>
+            <p>{{ item.reason }}</p>
+          </template>
         </div>
       </li>
     </ul>

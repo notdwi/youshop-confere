@@ -1,0 +1,7 @@
+lote	id	legenda	status	antes	depois
+5	ana	O cupom ANACURSO tira 20 por cento do valor do pacote Completo.	Impactada	15920	19900
+5	bruno	Para estudar pelo Básico, o investimento pelo link é R$ 99,00 à vista.	Compatível	9900	9900
+5	camila	Os preços serão divulgados na próxima semana.	Revisão necessária	-	-
+6	ana	Compre o Completo pelo preço normal de R$ 210.	Divergência preexistente	19900	19900
+6	bruno	Código ANACURSO: menos 20% ao escolher o plano Básico.	Compatível	7920	7920
+6	camila	Pela minha indicação, compre o Básico por 99 reais.	Revisão necessária	-	-

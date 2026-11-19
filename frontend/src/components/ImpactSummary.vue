@@ -22,6 +22,12 @@ const metrics: { status: Status; label: string; icon: string; tone: string }[] =
       icon: "mdi-text-search",
       tone: "review",
     },
+    {
+      status: "Divergência preexistente",
+      label: "Divergências preexistentes",
+      icon: "mdi-history",
+      tone: "prior",
+    },
   ];
 const count = (status: Status) =>
   props.results.filter((item) => item.status === status).length;
@@ -29,7 +35,13 @@ const count = (status: Status) =>
 
 <template>
   <dl class="metrics" aria-label="Resumo da última simulação">
-    <div v-for="metric in metrics" :key="metric.status" class="metric">
+    <div
+      v-for="metric in metrics.filter(
+        (m) => m.status !== 'Divergência preexistente' || count(m.status) > 0,
+      )"
+      :key="metric.status"
+      class="metric"
+    >
       <dt>{{ metric.label }}</dt>
       <dd>{{ count(metric.status) }}</dd>
       <v-icon
