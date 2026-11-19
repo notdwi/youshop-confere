@@ -38,3 +38,9 @@ O corpo admite também `referenceTime` e `expiresAt` em ISO 8601 com fuso. O ins
 O frontend consulta `GET /api/demo/` para obter `current`, `initialDraft` e `campaigns`. O campo `inSimulation` indica quais materiais entram no relatório. O Vite encaminha as chamadas de mesma origem ao Django em loopback.
 
 Na pasta `backend`, execute `.venv/bin/python manage.py test`. Os testes exercitam o catálogo, as três classificações, o recálculo e as rejeições de entrada. A API retorna HTTP 400 para contrato inválido, 413 para corpo acima de 16384 bytes, 415 para formato diferente de JSON e 405 para método incompatível.
+
+### Latência e modelo reserva
+
+No modo NVIDIA, a API dá até 8 segundos ao modelo principal e até 25 segundos ao reserva, configurável por `NVIDIA_FALLBACK_MODEL` (padrão `poolside/laguna-xs-2.1`). A troca ocorre por falha de transporte, tempo excedido, modelo indisponível, limitação de requisições, erro do servidor ou resposta inválida. Erros de autenticação encerram a consulta. Os dois modelos passam pela mesma validação de estrutura e evidência literal. Uma indisponibilidade geral da NVIDIA pode afetar ambos.
+
+A extração validada das três legendas públicas originais fica em memória por 15 minutos por processo. Cada simulação recalcula o checkout via MCP para a proposta recebida. Editar qualquer legenda faz o lote inteiro passar novamente pela IA e esse texto personalizado fica fora do cache.

@@ -16,7 +16,7 @@ class ExtractionTests(IsolatedAsyncioTestCase):
     async def invoke(self, output, status=200):
         def respond(request):
             body = json.loads(request.content)
-            self.assertEqual(body["model"], SETTINGS["NVIDIA_MODEL"])
+            self.assertIn(body["model"], (SETTINGS["NVIDIA_MODEL"], "poolside/laguna-xs-2.1"))
             self.assertEqual(json.loads(body["messages"][1]["content"]), [{"id": "ana", "quote": TEXT}])
             return httpx.Response(status, json={"choices": [{"finish_reason": "stop", "message": {
                 "content": json.dumps({"campaigns": output})
@@ -58,8 +58,10 @@ class ExtractionTests(IsolatedAsyncioTestCase):
         self.assertEqual(claims["ana"][0].value, 9900)
 
     async def test_retry_incomplete_response_once(self):
+        models = []
         batches = [[], [{"id": "ana", "claims": [CLAIM]}]]
         def respond(request):
+            models.append(json.loads(request.content)["model"])
             content = json.dumps({"campaigns": batches.pop(0)})
             return httpx.Response(200, json={"choices": [{"finish_reason": "stop", "message": {"content": content}}]})
         client = httpx.AsyncClient(transport=httpx.MockTransport(respond))
@@ -69,3 +71,22 @@ class ExtractionTests(IsolatedAsyncioTestCase):
             result = await extract(ITEMS)
         self.assertEqual(result["ana"][0].value, 20)
         self.assertEqual(batches, [])
+        self.assertEqual(models, ["fake/model", "poolside/laguna-xs-2.1"])
+
+    async def test_only_default_captions_reuse_validated_extraction(self):
+        from django.core.cache import cache
+        from simulacoes.checkout import CAMPAIGNS
+
+        campaigns = [item for item in CAMPAIGNS if item["inSimulation"]]
+        cache.clear()
+        self.addCleanup(cache.clear)
+        with patch("simulacoes.integracoes.extracao._config", return_value=SETTINGS), patch(
+            "simulacoes.integracoes.extracao.extract_nvidia", return_value={"ana": [CLAIM]}
+        ) as provider:
+            await extract(campaigns)
+            await extract(campaigns)
+            provider.assert_awaited_once()
+            edited = [{**item, "quote": "Legenda editada"} for item in campaigns]
+            await extract(edited)
+            await extract(edited)
+            self.assertEqual(provider.await_count, 3)

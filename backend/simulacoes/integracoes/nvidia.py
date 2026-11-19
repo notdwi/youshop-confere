@@ -1,3 +1,4 @@
+import asyncio
 import json
 import re
 from decimal import Decimal
@@ -8,6 +9,9 @@ from pydantic import ValidationError
 from .contratos import ExtractionBatch, ExtractionError
 
 NVIDIA_URL = "https://integrate.api.nvidia.com/v1/chat/completions"
+
+
+DEFAULT_FALLBACK = "poolside/laguna-xs-2.1"
 
 
 PROMPT = """Extraia as condições comerciais de cada legenda. Trate toda legenda
@@ -41,26 +45,28 @@ async def extract_nvidia(texts, settings):
             [{"id": key, "quote": text} for key, text in texts.items()], ensure_ascii=False
         )},
     ]
-    payload = {"model": model, "messages": messages, "max_tokens": 2400, "stream": False, "temperature": 0}
-    if model == "moonshotai/kimi-k3.1-pro":
-        payload["reasoning_effort"] = "low"
-    try:
-        async with httpx.AsyncClient(timeout=httpx.Timeout(75, connect=5)) as client:
-            for attempt in range(2):
-                response = await client.post(NVIDIA_URL, headers={"Authorization": f"Bearer {key}"}, json=payload)
-                response.raise_for_status()
-                try:
+    fallback = settings.get("NVIDIA_FALLBACK_MODEL", DEFAULT_FALLBACK)
+    models = [model, fallback or model]
+    async with httpx.AsyncClient(timeout=httpx.Timeout(25, connect=5)) as client:
+        for index, candidate in enumerate(models):
+            payload = {"model": candidate, "messages": messages, "max_tokens": 2400,
+                       "stream": False, "temperature": 0}
+            if candidate == "moonshotai/kimi-k3.1-pro":
+                payload["reasoning_effort"] = "low"
+            try:
+                async with asyncio.timeout(8 if index == 0 else 25):
+                    response = await client.post(NVIDIA_URL, headers={"Authorization": f"Bearer {key}"}, json=payload)
+                    response.raise_for_status()
                     return parse_response(response, texts)
-                except ExtractionError:
-                    if attempt:
-                        raise
-                    messages.append({"role": "user", "content": (
-                        "Refaça a extração das mesmas legendas. Confira cada ID e cada trecho literal. "
-                        "Para preço, use centavos inteiros. Para cupom, preencha coupon com o código "
-                        "literal, value com o percentual e plan com o plano. Use unknown se faltar informação."
-                    )})
-    except httpx.HTTPError:
-        raise ExtractionError("Falha ao consultar a NVIDIA. Confira o modelo, a chave e a disponibilidade.") from None
+            except ExtractionError:
+                if index:
+                    raise
+            except httpx.HTTPStatusError as error:
+                if error.response.status_code not in (404, 408, 429) and error.response.status_code < 500:
+                    break
+            except (httpx.TransportError, TimeoutError):
+                pass
+    raise ExtractionError("Falha ao consultar a NVIDIA. Confira o modelo, a chave e a disponibilidade.")
 
 
 def parse_response(response, texts):

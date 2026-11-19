@@ -1,10 +1,12 @@
 import os
 from pathlib import Path
 
+from django.core.cache import cache
 from dotenv import dotenv_values
 
+from ..checkout import CAMPAIGNS
 from .contratos import Claim, ExtractionError
-from .nvidia import extract_nvidia
+from .nvidia import DEFAULT_FALLBACK, extract_nvidia
 
 ENV_FILE = Path(__file__).resolve().parents[2] / ".env"
 
@@ -35,4 +37,14 @@ async def extract(campaigns):
             for key, text in texts.items()
         }
 
-    return await extract_nvidia(texts, _config())
+    settings = _config()
+    demo_texts = {c["id"]: c["quote"] for c in CAMPAIGNS if c["inSimulation"]}
+    if texts != demo_texts:
+        return await extract_nvidia(texts, settings)
+
+    cache_key = f"demo-claims:v1:{settings.get('NVIDIA_MODEL')}:{settings.get('NVIDIA_FALLBACK_MODEL', DEFAULT_FALLBACK)}"
+    claims = cache.get(cache_key)
+    if claims is None:
+        claims = await extract_nvidia(texts, settings)
+        cache.set(cache_key, claims, timeout=900)
+    return claims
