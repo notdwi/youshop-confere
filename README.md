@@ -15,7 +15,7 @@
 <p align="center">
   <a href="https://youshop.noctyra.lol/"><strong>Experimentar a demo</strong></a>
   &nbsp;·&nbsp;
-  <a href="docs/apresentacao/confere.pdf">Ler a apresentação em PDF</a>
+  <a href="docs/apresentacao/Gean_Entrega_YouShop_Confere.pdf">Ler a apresentação em PDF</a>
 </p>
 
 Este repositório reúne o protótipo, a apresentação e as decisões técnicas do Desafio de Inovação. Com o Confere, antes de mudar um cupom, o produtor pode testar **quais publicações de creators passariam a prometer um desconto diferente do cobrado**.

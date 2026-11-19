@@ -1,6 +1,6 @@
 # Apresentação do desafio
 
-[Apresentação em PDF](apresentacao/confere.pdf) · [Fonte editável em HTML](apresentacao/confere.html)
+[Apresentação em PDF](apresentacao/Gean_Entrega_YouShop_Confere.pdf) · [Fonte editável em HTML](apresentacao/confere.html)
 
 O PDF tem dez slides, com pitch pessoal na abertura e uma captura do relatório no quinto slide. O relato pessoal segue o currículo usado no projeto. A métrica de descontos abaixo do anunciado é uma proposta de piloto. O protótipo usa dados fictícios.
 
