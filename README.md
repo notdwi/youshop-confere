@@ -61,4 +61,4 @@ O modo local padrão usa extrações gravadas e dispensa chave. Para interpretar
 
 ## Documentação do projeto
 
-[Briefing do desafio](docs/01-desafio.md) · [Escopo da solução](docs/03-especificacao.md) · [Plano de execução](docs/06-plano.md) · [Registro de entrega](docs/RETOMADA.md)
+[Briefing do desafio](docs/01-desafio.md) · [Escopo da solução](docs/03-especificacao.md) · [Plano de execução](docs/06-plano.md)
