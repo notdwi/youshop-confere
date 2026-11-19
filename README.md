@@ -8,12 +8,17 @@
 <h1 align="center">YouShop Confere</h1>
 
 <p align="center">
+  Entrega do desafio técnico de Gean Carlos para o Programa de Estágio YouShop 2027.<br>
+  <strong>Vaga de Desenvolvimento – Integrações com Agentes de IA (MCP)</strong>
+</p>
+
+<p align="center">
   <a href="https://youshop.noctyra.lol/"><strong>Experimentar a demo</strong></a>
   &nbsp;·&nbsp;
   <a href="docs/apresentacao/confere.pdf">Ler a apresentação em PDF</a>
 </p>
 
-Antes de mudar um cupom, o produtor pode testar **quais publicações de creators passariam a prometer um desconto diferente do cobrado**. Projeto de Gean Carlos para o Desafio de Inovação do Programa de Estágio YouShop 2027.
+Este repositório reúne o protótipo, a apresentação e as decisões técnicas do Desafio de Inovação. Com o Confere, antes de mudar um cupom, o produtor pode testar **quais publicações de creators passariam a prometer um desconto diferente do cobrado**.
 
 ## Experimente com a campanha da Ana
 
